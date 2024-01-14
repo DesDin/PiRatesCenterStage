@@ -21,6 +21,7 @@ public class centerCodePart2 extends LinearOpMode {
         DcMotor motorArmExtender = hardwareMap.dcMotor.get("motorArmExtender"); // Ex 0
         DcMotor motorMount = hardwareMap.dcMotor.get("motorMount"); // Ex 1
         DcMotor motorDroneShooter = hardwareMap.dcMotor.get("motorDroneShooter"); // Ex2
+        DcMotor motorArmLifter = hardwareMap.dcMotor.get("motorArmLift") // 3
 
         Servo servoArmClaw = hardwareMap.servo.get("servoArmClaw"); // servo 0
         //Servo servoArmVertical = hardwareMap.servo.get("servoArmVertical"); // servo 1
@@ -39,6 +40,7 @@ public class centerCodePart2 extends LinearOpMode {
         motorArmExtender.setZeroPowerBehavior(BRAKE);
         motorMount.setZeroPowerBehavior(BRAKE);
         motorDroneShooter.setZeroPowerBehavior(BRAKE);
+        motorArmLifter.setZeroPowerBehavior(BRAKE);
 
         //set motors to zero while not in use(stops robot from moving while joystick isn't pressed)
         waitForStart();
@@ -65,42 +67,48 @@ public class centerCodePart2 extends LinearOpMode {
 
 
 
-            /*
-            double extenderPowerOut = (gamepad2.right_trigger);
+            
+            double mountPowerOut = (gamepad2.right_trigger);
             if (gamepad2.right_trigger > 0.01) {
-                motorArmExtender.setPower(extenderPowerOut);
+                motorMount.setPower(mountPowerOut);
             }
             else {
                 motorArmExtender.setPower(0);
             }
-            double extenderPowerIn = (gamepad2.left_trigger);
+            double mountPowerIn = (gamepad2.left_trigger);
             if (gamepad2.left_trigger > 0.01) {
-                motorArmExtender.setPower(extenderPowerIn);
+                motorMount.setPower(mountPowerIn);
             }
             else {
                 motorArmExtender.setPower(0);
             }
-            */
+            
 
 
-            /*
-            double mountPower = gamepad2.left_stick_y;
+            
+            double extenderPower = gamepad2.left_stick_y;
             if (gamepad2.right_stick_y > 0.1 || gamepad2.right_stick_y < -0.1) {
-                motorMount.setPower(mountPower);
+                motorArmExtender.setPower(extenderPower);
             }
             else {
-                motorMount.setPower(0);
+                motorArmExtender.setPower(0);
             }
-            */
+            
 
 
-            /*
+            
             if (gamepad2.y) {
                 motorDroneShooter.setPower(1); }
             else {
                 motorDroneShooter.setPower(0);
             }
-            */
+
+            double motorPower = 0.5 * gamepad2.left_stick_y;
+            if (gamepad2.left_stick_y > -0.1 || gamepad2.left_stick_y < 0.1) {
+                motorArmLifter.setPower(motorPower);
+            } else {
+                motorArmLifter.setPower(0);
+            }
 
 
 
